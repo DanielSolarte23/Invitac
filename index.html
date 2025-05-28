@@ -605,6 +605,99 @@
             transition: background 0.3s ease, transform 0.2s ease;
             animation: titlePulse 2s ease-in-out infinite;
         }
+
+ 
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #1e1e2f;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Heading */
+.modal-content h2 {
+  font-family: 'Comic Neue', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Image */
+.modal-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+
+/* Text */
+.modal-content .text {
+  font-family: 'Comic Neue', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #e6e6fa;
+}
+
+/* Button */
+.modal-content .btn {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.modal-content .btn:hover {
+  background-color: #ff85c1;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-content .text {
+    font-size: 1rem;
+  }
+}
+
     </style>
     </head>
     <body>
@@ -702,15 +795,25 @@
             <button class="Aceptar">Aceptar invitacion</button>
         </div>
 
+        <!-- Modal for accepting invitation -->
+        <div class="modal" id="acceptModal">
+            <div class="modal-content">
+                <h2>¡Gracias por aceptar la invitación!</h2>
+                <img src="lokiandmax.png" alt="lokimax">
+                <h1 class="text">Nos vemos pronto. 🎉</h1>
+                <button class="btn" id="btnclose">Cerrar</button>
+            </div>
+        </div>
+
         <script>
         const dialogs = [
             { character: 1, text: "", lokiImg: "loki.png", maxImg: "max1.png" },
             { character: 2, text: "Hola, soy Max, el peludo más curioso de esta historia.", lokiImg: "loki.png", maxImg: "max1.png" },
             { character: 1, text: " Y yo soy Loki, el guardián de los secretos... ", lokiImg: "loki.png", maxImg: "max1.png" },
-            { character: 1, text: "pero hoy te vamos a contar uno muy especial.", lokiImg: "loki.png", maxImg: "max1.png" },
-            { character: 2, text: "Hay alguien que no ha dejado de pensar en ti últimamente.", lokiImg: "loki.png", maxImg: "max1.png" },
-            { character: 1, text: "Y quiere invitarte a una escapada mágica, donde el cielo se llena de estrellas… y el corazón de cosas lindas.", lokiImg: "loki.png", maxImg: "max1.png" },
-            { character: 2, text: "¡Prepárate para vivir una gran aventura!", lokiImg: "lokiHappy.png", maxImg: "maxHappy.png" },
+            { character: 2, text: "pero hoy te vamos a contar uno muy especial.", lokiImg: "loki.png", maxImg: "max1.png" },
+            { character: 1, text: "Hay alguien que no ha dejado de pensar en ti últimamente.", lokiImg: "loki.png", maxImg: "max1.png" },
+            { character: 2, text: "Y quiere invitarte a una escapada mágica, donde el cielo se llena de estrellas… y el corazón de cosas lindas.", lokiImg: "loki.png", maxImg: "max1.png" },
+            { character: 1, text: "¡Prepárate para vivir una gran aventura!", lokiImg: "lokiHappy.png", maxImg: "maxHappy.png" },
         ];
         
         let currentDialog = 0;
@@ -933,7 +1036,14 @@
         }, 4000);
 
         document.querySelector('.Aceptar').addEventListener('click', function() {
-            alert('¡Gracias por aceptar la invitación!, nos vemos pronto 🎉');
+            document.getElementById('acceptModal').style.display = 'block';
+            document.getElementById('invitationView').classList.remove('show-invitation');
+            document.getElementById('comicView').style.display = 'none';
+        });
+
+        document.querySelector('#btnclose').addEventListener('click', function() {
+            document.getElementById('acceptModal').style.display = 'none';
+            document.getElementById('comicView').style.display = 'flex';
         });
     </script>
     </body>

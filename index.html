@@ -608,15 +608,18 @@
 
  
 .modal {
-  display: none;
+  display: none; /* Eliminar la segunda declaración de display */
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 1000;
-  display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+}
+
+.modal.show {
+  display: flex;
 }
 
 /* Modal content box */
@@ -1035,16 +1038,16 @@
             }
         }, 4000);
 
-        document.querySelector('.Aceptar').addEventListener('click', function() {
-            document.getElementById('acceptModal').style.display = 'block';
-            document.getElementById('invitationView').classList.remove('show-invitation');
-            document.getElementById('comicView').style.display = 'none';
-        });
+document.querySelector('.Aceptar').addEventListener('click', function() {
+    document.getElementById('acceptModal').classList.add('show');
+    document.getElementById('invitationView').classList.remove('show-invitation');
+    document.getElementById('comicView').style.display = 'none';
+});
 
-        document.querySelector('#btnclose').addEventListener('click', function() {
-            document.getElementById('acceptModal').style.display = 'none';
-            document.getElementById('comicView').style.display = 'flex';
-        });
+document.querySelector('#btnclose').addEventListener('click', function() {
+    document.getElementById('acceptModal').classList.remove('show');
+    document.getElementById('comicView').style.display = 'flex';
+});
     </script>
     </body>
 </html>
